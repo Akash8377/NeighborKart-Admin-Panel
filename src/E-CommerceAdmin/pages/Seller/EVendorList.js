@@ -7,7 +7,7 @@ import { Dropdown, Menu } from "antd";
 import { Link } from "react-router-dom";
 import BreadCamp from "../Component/BreadCamp";
 import './Seller.css'
-// import DeliveryRadius from './DeliveryRadius';
+import DeliveryRadius from './DeliveryRadius';
 // import DisableProperty from './DisableProperty'
 import { read, utils, writeFile } from 'xlsx';
 const EVendorList = () => {
@@ -281,7 +281,7 @@ const EVendorList = () => {
                                             <td>{ data.GST }</td>
                                             <td>{ data.Pan }</td>
                                             <td>{ data.Option }</td>
-                                            <td>{ data.Distance }</td>
+                                            <td><DeliveryRadius/></td>
                                             <td> {data.Commission} </td>
                                             <td><span className="badge bg-warning text-dark">{ data.Rating }</span></td>
                                             <td><span className="badge bg-warning text-dark">{ data.Rating }</span></td>
