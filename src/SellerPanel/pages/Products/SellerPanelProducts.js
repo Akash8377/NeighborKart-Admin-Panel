@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import HOC from "../../layout/HOC";
 import { Table } from "react-bootstrap";
 import SpinnerComp from "../Component/SpinnerComp";
+import {  Modal, Form, Button} from "react-bootstrap";
 import { Dropdown, Menu } from "antd";
 import { Link } from "react-router-dom";
-
+import BreadCamp from "../Component/../../../E-CommerceAdmin/pages/Component/BreadCamp";
 const SellerProducts = () => {
   const [query, setQuery] = useState("");
 
@@ -65,6 +66,9 @@ const SellerProducts = () => {
   const [postPerPage2] = useState(10);
   const lastPostIndex2 = currentPage2 * postPerPage2;
   const firstPostIndex2 = lastPostIndex2 - postPerPage2;
+  
+  const [modalShow, setModalShow] = React.useState(false);
+  const [edit, setEdit] = useState("");
 
   let pages2 = [];
 
@@ -100,10 +104,82 @@ const SellerProducts = () => {
       setCurrentPage2(currentPage2 - 1);
     }
   }
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {" "}
+            {edit ? "Edit Category" : " Add Category"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Title</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Reviews</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Discount(In %)</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Total Stock</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Price</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Discounted Price</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Seller Name</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Seller Store</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+
+            <Button
+              style={{
+                backgroundColor: "#19376d",
+                borderRadius: "0",
+                border: "1px solid #19376d",
+              }}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    );
+  }
 
   return (
     <>
-      <p className="headP">Dashboard / Products</p>
+     <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      <BreadCamp name='Products' />
 
       <div
         className="pb-4  w-full flex justify-between items-center"
@@ -115,6 +191,15 @@ const SellerProducts = () => {
         >
           All Product's ( Total : {data?.length} )
         </span>
+        <button
+            onClick={() => {
+              setEdit(false);
+              setModalShow(true);
+            }}
+            className="md:py-2 px-3 md:px-4 py-1 rounded-sm bg-[#19376d] text-white tracking-wider"
+          >
+            Add Products
+          </button>
       </div>
 
       <section className="sectionCont">
@@ -146,6 +231,8 @@ const SellerProducts = () => {
                     <th>Total Stock</th>
                     <th>Price</th>
                     <th>Discounted Price</th>
+                    <th>Seller Name</th>
+                    <th>Seller Store</th>
                     <th> </th>
                   </tr>
                 </thead>
@@ -162,6 +249,8 @@ const SellerProducts = () => {
                       <td>{i.stock}</td>
                       <td>{i.price}</td>
                       <td>{i.discountedPrice}</td>
+                      <td>{i.sellerName}</td>
+                      <td>{i.storeName}</td>
 
                       <td style={{ textAlign: "center" }}>
                         <Dropdown
@@ -170,7 +259,7 @@ const SellerProducts = () => {
                               <Menu.Item key="2">
                                 <div className="two_Sec_Div">
                                   <i className="fa-solid fa-eye"></i>
-                                  <Link to={`/SellerProducts/product/${i.name}`}>
+                                  <Link to={`/product/${i.name}`}>
                                     <p>View Product</p>
                                   </Link>
                                 </div>

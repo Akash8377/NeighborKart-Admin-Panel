@@ -160,6 +160,15 @@ const EVendorList = () => {
               <Form.Label>Pan Number</Form.Label>
               <Form.Control type="text" required />
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Option</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+          
+            <Form.Group className="mb-3" >
+              <Form.Label>Commission</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
 
             <Button
               style={{
@@ -260,7 +269,7 @@ const EVendorList = () => {
                     <th>GST</th>
                     <th>PAN Number</th>
                     <th>Option</th>
-                    <th>Distance</th>
+                    <th>Distance<br/>(In Km)</th>
                     <th>Commission</th>
                     <th></th>
                   </tr>
